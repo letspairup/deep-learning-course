@@ -36,8 +36,8 @@ def test_logging(logger: tb.SummaryWriter):
         # log average train_loss and train_accuracy
         avg_train_loss = epoch_train_loss / 20
         avg_train_accuracy = sum(metrics["train_acc"]) / len(metrics["train_acc"])
-        logger.add_scalar('avg_train_loss', avg_train_loss, epoch)
-        logger.add_scalar('train_accuracy', avg_train_accuracy, epoch)
+        logger.add_scalar('avg_train_loss', avg_train_loss, global_step=epoch)
+        logger.add_scalar('train_accuracy', avg_train_accuracy, global_step=epoch)
         print(f"Epoch {epoch}: avg_train_loss = {avg_train_loss}, train_accuracy = {avg_train_accuracy}")
 
         # example validation loop
@@ -50,7 +50,7 @@ def test_logging(logger: tb.SummaryWriter):
 
         # log average val_accuracy
         avg_val_accuracy = sum(metrics["val_acc"]) / len(metrics["val_acc"])
-        logger.add_scalar('val_accuracy', avg_val_accuracy, epoch)
+        logger.add_scalar('val_accuracy', avg_val_accuracy, global_step=epoch)
         print(f"Epoch {epoch}: val_accuracy = {avg_val_accuracy}")
 
 if __name__ == "__main__":
