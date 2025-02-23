@@ -83,7 +83,7 @@ class MLPClassifier(nn.Module):
         return x
 
 class MLPClassifierDeep(nn.Module):
-    def __init__(self, h: int = 64, w: int = 64, num_classes: int = 6, hidden_dim: int = 128, num_layers: int = 4):
+    def __init__(self, h: int = 64, w: int = 64, num_classes: int = 6, hidden_dim: int = 128, num_layers: int = 4, dropout: float = 0.5):
         """
         An MLP with multiple hidden layers
 
@@ -99,7 +99,9 @@ class MLPClassifierDeep(nn.Module):
         input_dim = h * w * 3
         for _ in range(num_layers):
             layers.append(nn.Linear(input_dim, hidden_dim))
+            layers.append(nn.BatchNorm1d(hidden_dim))
             layers.append(nn.ReLU())
+            layers.append(nn.Dropout(dropout))
             input_dim = hidden_dim
         layers.append(nn.Linear(hidden_dim, num_classes))
         self.model = nn.Sequential(*layers)
