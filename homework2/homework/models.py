@@ -112,7 +112,13 @@ class MLPClassifierDeep(nn.Module):
         Returns:
             tensor (b, num_classes) logits
         """
-        return self.model(x)
+        # forward pass through the sequential model
+        x = self.flatten(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.fc2(x)
+        x = self.model(x)
+        return x
 
 class MLPClassifierDeepResidual(nn.Module):
     def __init__(self, h: int = 64, w: int = 64, num_classes: int = 6, hidden_dim: int = 128, num_layers: int = 4):
