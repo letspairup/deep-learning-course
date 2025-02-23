@@ -99,7 +99,7 @@ class MLPClassifierDeep(nn.Module):
         input_dim = h * w * 3
         for _ in range(num_layers):
             layers.append(nn.Linear(input_dim, hidden_dim))
-            layers.append(nn.batchnorm1d(hidden_dim))
+            layers.append(nn.BatchNorm1d(hidden_dim))
             layers.append(nn.ReLU())
             input_dim = hidden_dim
         layers.append(nn.Linear(hidden_dim, num_classes))
