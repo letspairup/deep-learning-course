@@ -42,7 +42,7 @@ def test_logging(logger: tb.SummaryWriter):
         # log average train_accuracy
         avg_train_accuracy = sum(metrics["train_acc"]) / len(metrics["train_acc"])
         logger.add_scalar('train_accuracy', avg_train_accuracy, epoch)
-        #print(f"Epoch {epoch}: train_accuracy = {avg_train_accuracy}")
+        print(f"Epoch {epoch}: train_accuracy = {avg_train_accuracy}")
         # example validation loop
         torch.manual_seed(epoch)
         for _ in range(10):
@@ -51,12 +51,14 @@ def test_logging(logger: tb.SummaryWriter):
             # TODO: save additional metrics to be averaged
             # save validation accuracy to metrics
             metrics["val_acc"].append(dummy_validation_accuracy.mean().item())
+            # log validation accuracy
+            logger.add_scalar('val_accuracy', dummy_validation_accuracy.mean().item(), epoch)
 
         # TODO: log average val_accuracy
         # log average val_accuracy
         avg_val_accuracy = sum(metrics["val_acc"]) / len(metrics["val_acc"])
         logger.add_scalar('val_accuracy', avg_val_accuracy, epoch)
-        #print(f"Epoch {epoch}: val_accuracy = {avg_val_accuracy}")
+        print(f"Epoch {epoch}: val_accuracy = {avg_val_accuracy}")
 
 
 if __name__ == "__main__":
